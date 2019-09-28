@@ -31,12 +31,11 @@ char GetUserInput()
   // This method was created independent from error checking to improve modularity.
   char Prompt()
   {
-    char input;
+    char input[100];
     printf("Enter your Guess -> ");
-    scanf("%c", &input);
-    getchar(); // Grab the extra character entered.
-    input = toupper(input);
-    return input;
+    scanf("%s", &input);
+    input[0] = toupper(input[0]);
+    return input[0];
   }
 
   // Input errors are caught by matching to only the specific characters that are valid in this program.
