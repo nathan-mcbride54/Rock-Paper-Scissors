@@ -1,29 +1,45 @@
-//
 // ======================
 // Nathan Mcbride 0615415
-// Rock Paper Scissors!
 // COIS-3320 Lab 1
 // ======================
-//
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>``
+#include <unistd.h>
 #include <ctype.h>
 #include <time.h>
 
+// Constant used in while loops.
 #define infinate 1
 
+// This function is not required, but used to give the game a better look.
+void DisplayGame(int user_score, int computer_score, int round)
+{
+  system("clear");
+  printf("╦═╗┌─┐┌─┐┬┌─  ╔═╗┌─┐┌─┐┌─┐┬─┐  ╔═╗┌─┐┬┌─┐┌─┐┌─┐┬─┐┌─┐\n");
+  printf("╠╦╝│ ││  ├┴┐  ╠═╝├─┤├─┘├┤ ├┬┘  ╚═╗│  │└─┐└─┐│ │├┬┘└─┐\n");
+  printf("╩╚═└─┘└─┘┴ ┴  ╩  ┴ ┴┴  └─┘┴└─  ╚═╝└─┘┴└─┘└─┘└─┘┴└─└─┘\n");
+  printf("=====================================================\n");
+  printf("Enter R for Rock, P for Paper, S for Scissors, Q to Quit\n\n");
+  printf("=======================================\n");
+  printf("| ROUND: %i | USER: %i | COMPUTER: %i |\n", round, user_score, computer_score);
+  printf("=======================================\n\n");
+}
+
+// This function is used to prompt the user for an input and ensure the input is valid.
 char GetUserInput()
 {
+  // This method was created independent from error checking to improve modularity.
   char Prompt()
   {
     char input;
     printf("Enter your Guess -> ");
     scanf("%c", &input);
-    getchar(); // Grab the extra character entered
-    return toupper(input);
+    getchar(); // Grab the extra character entered.
+    input = toupper(input);
+    return input;
   }
 
+  // Input errors are caught by matching to only the specific characters that are valid in this program.
   while(infinate)
   {
     char input = Prompt();
@@ -32,6 +48,7 @@ char GetUserInput()
   }
 }
 
+// This function generates a random number between 0-2 and returns a char representing the random choice.
 char GetComputerChoice()
 {
   switch((rand() % 3))
@@ -42,6 +59,7 @@ char GetComputerChoice()
   }
 }
 
+// This function uses nested switch statements to define the logic of who wins the game.
 int FindWinner(char user_choice, char computer_choice)
 {
   switch(user_choice)
@@ -71,30 +89,34 @@ int FindWinner(char user_choice, char computer_choice)
 
 void main()
 {
-  // Included to seed radom number generation at runtime
+  // Included to seed random number generation with time at NULL for rand() at runtime.
   srand((time(NULL)));
 
+  int user_score = 0;
+  int computer_score = 0;
+  int round = 0;
+
+  // Loop until user exits the program.
   while(infinate)
   {
+    // Display the user interface of the game in the terminal.
+    DisplayGame(user_score, computer_score, round);
 
-    system("clear");
-    printf("╦═╗┌─┐┌─┐┬┌─  ╔═╗┌─┐┌─┐┌─┐┬─┐  ╔═╗┌─┐┬┌─┐┌─┐┌─┐┬─┐┌─┐\n");
-    printf("╠╦╝│ ││  ├┴┐  ╠═╝├─┤├─┘├┤ ├┬┘  ╚═╗│  │└─┐└─┐│ │├┬┘└─┐\n");
-    printf("╩╚═└─┘└─┘┴ ┴  ╩  ┴ ┴┴  └─┘┴└─  ╚═╝└─┘┴└─┘└─┘└─┘┴└─└─┘\n");
-    printf("=====================================================\n");
-    printf("Enter R for Rock, P for Paper, S for Scissors, Q to Quit\n\n");
-
+    // Call prompt to get user input for program, quit program if requested.
     char user_choice = GetUserInput();
     if(user_choice == 'Q') { return; }
     printf("your choice: %c \n", user_choice);
 
+    // Generate random choice from computer.
     char computer_choice = GetComputerChoice();
     printf("computer choice: %c \n", computer_choice);
 
+    // Call function to compare choices, then determine winner.
     switch(FindWinner(user_choice, computer_choice))
     {
       case -1 :
       printf("The Computer wins!\n\n");
+      computer_score += 1;
       break;
 
       case 0 :
@@ -103,9 +125,12 @@ void main()
 
       case 1 :
       printf("You win!\n\n");
+      user_score += 1;
       break;
     }
+    round += 1;
 
+    // Pause program before ending loop and clearing screen.
     sleep(2);
   }
 }
