@@ -8,20 +8,6 @@
 #include <ctype.h>
 #include <time.h>
 
-// This function is not required, but used to give the game a better look.
-void DisplayGame(int user_score, int computer_score, int round)
-{
-  system("clear");
-  printf("╦═╗┌─┐┌─┐┬┌─  ╔═╗┌─┐┌─┐┌─┐┬─┐  ╔═╗┌─┐┬┌─┐┌─┐┌─┐┬─┐┌─┐\n");
-  printf("╠╦╝│ ││  ├┴┐  ╠═╝├─┤├─┘├┤ ├┬┘  ╚═╗│  │└─┐└─┐│ │├┬┘└─┐\n");
-  printf("╩╚═└─┘└─┘┴ ┴  ╩  ┴ ┴┴  └─┘┴└─  ╚═╝└─┘┴└─┘└─┘└─┘┴└─└─┘\n");
-  printf("=====================================================\n");
-  printf("Enter R for Rock, P for Paper, S for Scissors, Q to Quit\n\n");
-  printf("=======================================\n");
-  printf("| ROUND: %i | USER: %i | COMPUTER: %i |\n", round, user_score, computer_score);
-  printf("=======================================\n\n");
-}
-
 // This function is used to prompt the user for an input and ensure the input is valid.
 char GetUserInput()
 {
@@ -95,7 +81,15 @@ void main()
   while(1)
   {
     // Display the user interface of the game in the terminal.
-    DisplayGame(user_score, computer_score, round);
+    system("clear");
+    printf("╦═╗┌─┐┌─┐┬┌─  ╔═╗┌─┐┌─┐┌─┐┬─┐  ╔═╗┌─┐┬┌─┐┌─┐┌─┐┬─┐┌─┐\n");
+    printf("╠╦╝│ ││  ├┴┐  ╠═╝├─┤├─┘├┤ ├┬┘  ╚═╗│  │└─┐└─┐│ │├┬┘└─┐\n");
+    printf("╩╚═└─┘└─┘┴ ┴  ╩  ┴ ┴┴  └─┘┴└─  ╚═╝└─┘┴└─┘└─┘└─┘┴└─└─┘\n");
+    printf("=====================================================\n");
+    printf("Enter R for Rock, P for Paper, S for Scissors, Q to Quit\n\n");
+    printf("=======================================\n");
+    printf("| ROUND: %i | USER: %i | COMPUTER: %i |\n", round, user_score, computer_score);
+    printf("=======================================\n\n");
 
     // Call prompt to get user input for program, quit program if requested.
     char user_choice = GetUserInput();
@@ -123,6 +117,7 @@ void main()
       user_score += 1;
       break;
     }
+    
     round += 1;
 
     // Pause program before ending loop and clearing screen.
