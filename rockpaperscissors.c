@@ -8,9 +8,6 @@
 #include <ctype.h>
 #include <time.h>
 
-// Constant used in while loops.
-#define infinate 1
-
 // This function is not required, but used to give the game a better look.
 void DisplayGame(int user_score, int computer_score, int round)
 {
@@ -34,12 +31,11 @@ char GetUserInput()
     char input[100];
     printf("Enter your Guess -> ");
     scanf("%s", &input);
-    input[0] = toupper(input[0]);
-    return input[0];
+    return toupper(input[0]);
   }
 
   // Input errors are caught by matching to only the specific characters that are valid in this program.
-  while(infinate)
+  while(1)
   {
     char input = Prompt();
     if(input == 'R' || input == 'P' || input == 'S' || input == 'Q') { return input; }
@@ -96,7 +92,7 @@ void main()
   int round = 0;
 
   // Loop until user exits the program.
-  while(infinate)
+  while(1)
   {
     // Display the user interface of the game in the terminal.
     DisplayGame(user_score, computer_score, round);
