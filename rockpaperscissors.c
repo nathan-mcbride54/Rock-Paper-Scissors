@@ -117,7 +117,7 @@ void main()
       user_score += 1;
       break;
     }
-    
+
     round += 1;
 
     // Pause program before ending loop and clearing screen.
